@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DokuwikiSharpRPC", "DokuwikiSharpRPC\DokuwikiSharpRPC.csproj", "{2DC9247B-3940-410A-81D6-811A3AD1E4B1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RPC_TestUI", "_test\RPC_TestUI\RPC_TestUI.csproj", "{A4F9D7D5-E2E5-4F3D-A64C-B1D9AD1B1D7C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{CEABA04B-D3F4-4207-84D2-CFEEB79A5BCC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2DC9247B-3940-410A-81D6-811A3AD1E4B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DC9247B-3940-410A-81D6-811A3AD1E4B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DC9247B-3940-410A-81D6-811A3AD1E4B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DC9247B-3940-410A-81D6-811A3AD1E4B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4F9D7D5-E2E5-4F3D-A64C-B1D9AD1B1D7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4F9D7D5-E2E5-4F3D-A64C-B1D9AD1B1D7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4F9D7D5-E2E5-4F3D-A64C-B1D9AD1B1D7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4F9D7D5-E2E5-4F3D-A64C-B1D9AD1B1D7C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A4F9D7D5-E2E5-4F3D-A64C-B1D9AD1B1D7C} = {CEABA04B-D3F4-4207-84D2-CFEEB79A5BCC}
+	EndGlobalSection
+EndGlobal
