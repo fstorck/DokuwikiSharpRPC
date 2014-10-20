@@ -16,7 +16,7 @@ namespace DokuwikiSharpRPC
 
         #region Dokuwiki
 
-        [XmlRpcMethod("dokuwiki.getPageList")]
+        [XmlRpcMethod("dokuwiki.getPagelist")]
         XmlRpcStruct[] GetPageList(string NameSpace, XmlRpcStruct options);
 
         [XmlRpcMethod("dokuwiki.login")]
