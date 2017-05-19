@@ -35,8 +35,15 @@ namespace RPC_TestUI
 
             if (_Connector.Connect(TBX_Url.Text, TBX_User.Text, TBX_Password.Text))
             {
-                object   info = _Connector.DWInstance.getPageInfo("intern:index");
-                object[]   pg = _Connector.DWInstance.getPageVersions("intern:index", 0);
+                // object   info = _Connector.DWInstance.getPageInfo("intern:index");
+                // object[]   pg = _Connector.DWInstance.getPageVersions("intern:index", 0);
+
+                XmlRpcStruct xp = new XmlRpcStruct();
+                xp.Add("depth", 0);
+                xp.Add("listdirs", true);
+                object[] pges = _Connector.DWInstance.GetPageList("lictracking", xp);
+
+                Console.WriteLine("Test");
             }
         }
 
