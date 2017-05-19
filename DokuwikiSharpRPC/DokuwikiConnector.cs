@@ -13,7 +13,6 @@ namespace DokuwikiSharpRPC
 {
     public interface IDokuWiki : IXmlRpcProxy
     {
-
         #region Dokuwiki
 
         [XmlRpcMethod("dokuwiki.getPagelist")]
@@ -30,6 +29,8 @@ namespace DokuwikiSharpRPC
 
         [XmlRpcMethod("dokuwiki.appendPage")]
         bool appendPage(string pageUrl, string wikiMarkup, XmlRpcStruct options);
+
+
 
         #endregion
 
@@ -87,10 +88,103 @@ namespace DokuwikiSharpRPC
         [XmlRpcMethod("wiki.deleteAttachment")]
         void deleteAttachment(string ID);
 
+        #region RPC Errors
+
+              
+        public enum Errors
+        {
+            //    100 → Page errors
+            //        110 → Page access errors
+            //            111 → User is not allowed to read the requested page
+            //            112 → User is not allowed to edit the page
+            //            113 → manager permission is required
+            //            114 → superuser permission is required
+            //        120 → Page existence errors
+            //            121 → The requested page does not exist
+            //        130 → Page edit errors
+            //            131 → Empty page id
+            //            132 → Empty page content
+            //            133 → Page is locked
+            //            134 → Positive wordblock check
+            //    200 → Media errors
+            //        210 → Media access errors
+            //            211 → User is not allowed to read the requested media
+            //            212 → User is not allowed to delete media
+            //            215 → User is not allowed to list media
+            //        220 → Media existence errors
+            //            221 → The requested media does not exist
+            //        230 → Media edit errors
+            //            231 → Filename not given
+            //            232 → File is still referenced
+            //            233 → Could not delete file
+            //    300 → Search errors
+            //        310 → Argument errors
+            //            311 → The provided value is not a valid timestamp
+            //        320 → Search result errors
+            //            321 → No changes in specified timeframe
+
+            Page_Error = 100,
+            Page_Access_Error = 110,
+            Page_Access_Error_User_Disallow_Read  = 111,
+            Page_Access_Error_User_Disallow_Edit = 112,
+            Page_Access_Error_User_Manager_Permission_Reqired = 113,
+            Page_Access_Error_User_Superuser_Permission_Reqired = 114,
+            Page_Existence = 120,
+            Page_Existence_NotExist = 121,
+            Page_Edit = 130,
+            Page_Edit_EmptyID = 131,
+            Page_Edit_EmptyContent = 132,
+            Page_Edit_Locked = 133,
+            Page_Edit_WordblockCheck = 134,
+            Media_Error = 200,
+            Media_Access = 210,
+            Media_Access_Error_User_Disallow_Read = 211,
+            Media_Access_Error_User_Disallow_Edit = 212,
+            Media_Access_Error_User_Disallow_List = 215,
+            Media_Existence = 220,
+            Media_Existence_NotExist = 221,
+            Media_Edit = 230,
+            Media_Edit_NoFilename = 231,
+            Media_Edit_FilenameStillReferenced = 232,
+            Media_Edit_CouldNotDelete = 233,
+            Search_Error = 300,
+            Search_Error_ArgumentErr_Timestamp_invalid = 311,
+            Search_Error_Result = 320,
+            Search_Error_Result_NoChangesFound = 321,
+            //Additionally there are some server error codes that indicate some kind of server or XML-RPC failure. The codes are the following:
+
+            //    -32600 → Invalid XML-RPC request. Not conforming to specification.
+            //    -32601 → Requested method does not exist.
+            //    -32602 → Wrong number of parameters or invalid method parameters.
+            //    -32603 → Not authorized to call the requested method (No login or invalid login data was given).
+            //    -32604 → Forbidden to call the requested method (but a valid login was given).
+            //    -32605 → The XML-RPC API has not been enabled in the configuration
+            //    -32700 → Parse Error. Request not well formed.
+            //    -32800 → Recursive calls to system.multicall are forbidden.
+            //    -99999 → Unknown server error.
+
+
+            Xmlrpc_InvalidRequest = -32600,
+            Xmlrpc_MethodNotExist = -32601,
+            Xmlrpc_InvalidParameters = -32602,
+            Xmlrpc_NotAuthorized = -32603,
+            Xmlrpc_NoCallPermission = -32604,
+            Xmlrpc_ApiDisabled = -32605,
+            Xmlrpc_ParseError = -32700,
+            Xmlrpc_SystemRecursiveCallsForbidden = -32800,
+            Xmlrpc_UnknownServerError = -99999
+        }
+
+        #endregion 
+
     }
+
+   
 
     public class DokuWikiConnector
     {
+        public const int RPC_TIMEOUT = 5000;
+
         IDokuWiki _RPCProxy;
         bool _bConnected = false;
 
@@ -149,7 +243,7 @@ namespace DokuwikiSharpRPC
             try
             {
                 _RPCProxy.Url = URL;
-                _RPCProxy.Timeout = 5000;
+                _RPCProxy.Timeout = RPC_TIMEOUT;
                 _bConnected = _RPCProxy.Login(User, Password);
             }
             catch (System.Exception ex)
